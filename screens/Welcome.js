@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 
-export default function Welcome({navigation}) {
+export default function Welcome({ navigation }) {
     return (
         <View style={styles.container}>
-            <Image source={require('../assets/rentozaImage.png')} style={styles.image} />
+            <Image source={require('../assets/nature-product.png')} style={styles.image} />
             <Text style={styles.fontText}>Rentoza Products</Text>
-            <Pressable style={styles.ButtonSignUp} onPress={()=>
+            <Pressable style={styles.ButtonSignUp} onPress={() =>
                 navigation.navigate('ProductList')
             }
             >
@@ -23,25 +23,28 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+        width: '100%',
     },
     fontText: {
-        fontSize: 35,
+        fontSize: 30,
         fontWeight: 'bold',
-        color: '#23375c'
+        color: '#23375c',
+        textAlign: 'center'
     },
     ButtonSignUp: {
-        backgroundColor: '#149E7E',
+        backgroundColor: '#6bc13b',
         marginTop: 20,
-        width: 280,
+        width: 250,
         height: 35,
-        padding: 5
+        padding: 5,
+        alignItems: 'center',
     },
     textSignUp: {
         color: '#fff',
         textAlign: 'center',
     },
-    image:{
-        width:100,
-        height:100
+    image: {
+        width: 100,
+        height: 100
     }
 });

@@ -1,13 +1,29 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-native';
-import { GetProducts } from '../services/ApiProduct'
+import { GetProducts, GetAllCarts, AddProductToCart } from '../services/ApiProduct';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export default function ProductList() {
+export default function ProductList({ navigation }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    get_products();
+    const fetchData = async () => {
+      try {
+        await get_products();
+        await GetCarts();
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData()
   }, [])
+
+
+  const GetCarts = async () => {
+    const displayCarts = await GetAllCarts();
+    console.log(displayCarts)
+  }
 
   const get_products = async () => {
     const DisplayProductData = await GetProducts();
@@ -16,9 +32,26 @@ export default function ProductList() {
     console.log(products)
   }
 
+  const AddToCart = async (item) => {
+    console.log('Adding to cart', item)
+    const ProductArray = [
+      {
+        id: item.id, title: item.title, price: item.price, description: item.description, category: item.category, image: item.image
+      }
+    ]
+    console.log(ProductArray)
+    const post_addCart = await AddProductToCart(ProductArray);
+    console.log(post_addCart)
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.TextFont}>Product List</Text>
+      <View style={styles.topBar}>
+        <Pressable style={styles.IconButton} onPress={() => {
+          navigation.navigate('Cart')
+        }}><Icon name="shopping-cart" size={24} color="#fff" /></Pressable>
+        <Text style={styles.TextFont}>Product List</Text>
+      </View>
       <ScrollView>
         {products.map((item) => (
           <View key={item.id} style={styles.card}>
@@ -28,8 +61,21 @@ export default function ProductList() {
             <Text style={styles.title}>{item.title}</Text>
             <Text numberOfLines={1} style={styles.description}>R{item.description}</Text>
             <Text style={styles.price}>R{item.price}</Text>
-            <Pressable><Text>View</Text></Pressable>
-               <Pressable><Text>Add to Cart</Text></Pressable>
+            <Pressable onPress={() => {
+              navigation.navigate('ViewProductDetails', { item })
+
+            }}>  
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Icon style={styles.icon} name="visibility" size={15} />
+                <Text style={styles.viewButton}>View</Text>
+              </View>
+              </Pressable>
+            <Pressable onPress={() => AddToCart(item)}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Icon style={styles.icon} name="shopping-cart" size={15} />
+                <Text style={styles.CartButton} >Add to Cart</Text>
+              </View>
+              </Pressable>
           </View>
         ))}
       </ScrollView>
@@ -40,26 +86,35 @@ export default function ProductList() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f2f2f2',
     alignItems: 'center',
   },
   TextFont: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
-    color: '#23375c',
-    marginTop: 15
+    color: '#fff',
+    marginBottom: 10,
+    textAlign: 'center'
+  },
+  IconButton: {
+    marginLeft: 280,
+    marginTop: 10
+  },
+  topBar: {
+    backgroundColor: "#6bc13b",
+    width: '100%'
   },
   card: {
-    width: 350,
-    height: 400,
-    backgroundColor: 'whitesmoke',
+    width: 280,
+    height: 450,
+    backgroundColor: '#fff',
     marginTop: 15,
-    elevation: 4,
+    borderRadius: 8,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 4, height: 4 },
     shadowOpacity: 0.4,
     shadowRadius: 5,
-    borderColor: 'red',
+    elevation: 6,
     alignItems: 'center',
   },
   image: {
@@ -74,17 +129,32 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
   title: {
-    color: '#23375c',
-    fontWeight: 600,
+    color: '#6bc13b',
+    fontWeight: 900,
     marginTop: 70,
     padding: 10,
   },
   description: {
     padding: 10
   },
-  price:{
-      color: '#23375c',
+  price: {
+    color: '#6bc13b',
     fontWeight: 600,
-    fontSize:15
+    fontSize: 15,
+    padding: 10,
+  },
+  viewButton: {
+    color: "#6bc13b",
+    fontWeight: 700,
+      marginTop: 16
+  },
+  CartButton: {
+    color: "#6bc13b",
+    fontWeight: 700,
+    marginTop: 17
+  },
+  icon: {
+    marginTop: 15,
+    color: "#6bc13b",
   }
 });
