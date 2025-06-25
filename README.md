@@ -40,7 +40,7 @@ Guide users to get a local copy up and running. This section should be a quick o
 1.Clone project from git <br/>
 2.Open using Visual Studio Code <br/>
 3.Run npm i <br/>
-4.Then run npx expo start to open app <br/>
+4.Then run 'npx expo start' to open app <br/>
 
 ### On Device
 1.Download Expo Go on device<br/>
