@@ -34,21 +34,21 @@ Guide users to get a local copy up and running. This section should be a quick o
 -npm react-native-vector-icons/MaterialIcons
 
 
-#### How to run project:
+## How to run project:
 
-## GitHub
+### GitHub
 1.Clone project from git <br/>
 2.Open using Visual Studio Code <br/>
 3.Run npm i <br/>
 4.Then run npx expo start to open app <br/>
 
-## On Device
+### On Device
 1.Download Expo Go on device<br/>
 2.Run npx expo start on your Visual Studio Code<br/>
 3.Open Expo Go on device signup if you have not <br/>
 4.Scan the generated QRcode from Visual Studio Code <br/>
 
-## On Emulator
+### On Emulator
 1.Run npx expo start on your Visual Studio Code<br/>
 2.Press a for android<br/>
 3.Download Android Studio <br/>
