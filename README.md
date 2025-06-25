@@ -34,17 +34,17 @@ Guide users to get a local copy up and running. This section should be a quick o
 #### How to run project:
 
 ## On Device
-1.Download Expo Go on device
-2.Run npx expo start on your Visual Studio Code
-3.Open Expo Go on device signup if you have not 
-4.Scan the generated QRcode from Visual Studio Code 
+1.Download Expo Go on device<br/>
+2.Run npx expo start on your Visual Studio Code<br/>
+3.Open Expo Go on device signup if you have not <br/>
+4.Scan the generated QRcode from Visual Studio Code <br/>
 
 ## On Emulator
-1.Run npx expo start on your Visual Studio Code
-2.Press a for android
-3.Download Android Studio 
-4.Add emulator
-5.Then project will run on emulator avaliable 
+1.Run npx expo start on your Visual Studio Code<br/>
+2.Press a for android<br/>
+3.Download Android Studio <br/>
+4.Add emulator<br/>
+5.Then project will run on emulator avaliable <br/>
 
 ### Contact
 -Name - janetzango@gmail.com<br/>
