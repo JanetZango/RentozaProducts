@@ -24,7 +24,7 @@ export default function App() {
         const savedUser = await AsyncStorage.getItem('UserLogin');
         console.log(savedUser)
         if (savedUser) {
-          setInitialRoute('ProductList'); // or 'Welcome'
+          setInitialRoute('ProductList'); 
         } else {
           setInitialRoute('Welcome');
         }
