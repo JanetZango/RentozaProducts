@@ -63,7 +63,7 @@ export default function ViewProductDetails({ route, navigation }) {
                         closeOnHardwareBackPress={false}
                         showConfirmButton={true}
                         confirmText="OK"
-                        confirmButtonColor="#DD6B55"
+                        confirmButtonColor="#6bc13b"
                         onConfirmPressed={() => {
                             setShowAlert(false);
                         }}

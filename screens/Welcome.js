@@ -6,7 +6,7 @@ export default function Welcome({ navigation }) {
             <Image source={require('../assets/nature-product.png')} style={styles.image} />
             <Text style={styles.fontText}>Rentoza Products</Text>
             <Pressable style={styles.ButtonSignUp} onPress={() =>
-                navigation.navigate('ProductList')
+                navigation.navigate('Login')
             }
             >
                 <Text style={styles.textSignUp}>

@@ -9,6 +9,7 @@ export default function ProductList({ navigation }) {
   const [products, setProducts] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [showAlertLogout, setShowAlertLogout] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,7 +29,7 @@ export default function ProductList({ navigation }) {
       await AsyncStorage.removeItem('UserLogin');
       navigation.replace('Login');
       //  showAlertLogout(true);
-   
+
     } catch (error) {
       console.error('Logout failed:', error);
     }
@@ -43,6 +44,7 @@ export default function ProductList({ navigation }) {
   const GetCarts = async () => {
     const displayCarts = await GetAllCarts();
     console.log(displayCarts)
+    setCartCount(displayCarts.length);
   }
 
   const get_products = async () => {
@@ -79,9 +81,14 @@ export default function ProductList({ navigation }) {
         <Text style={styles.TextFont}>Product List</Text>
 
         <View style={styles.rightButtons}>
-          <Pressable style={styles.IconButton} onPress={() => navigation.navigate('Cart')}>
+          <Pressable style={styles.IconButton}>
             <Icon name="shopping-cart" size={24} color="#fff" />
           </Pressable>
+          {cartCount > 0 && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{cartCount}</Text>
+            </View>
+          )}
         </View>
       </View>
       <ScrollView>
@@ -164,6 +171,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     alignItems: 'center',
   },
+  badge: {
+  position: 'absolute',
+  top: -4,
+  right: -4,
+  backgroundColor: 'red',
+  borderRadius: 10,
+  minWidth: 18,
+  height: 18,
+  justifyContent: 'center',
+  alignItems: 'center',
+  paddingHorizontal: 4,
+  zIndex: 1,
+},
+
+badgeText: {
+  color: 'white',
+  fontSize: 10,
+  fontWeight: 'bold',
+},
   IconButtonLoginOut: {
     marginLeft: 10,
     // paddingTop:20
@@ -181,46 +207,46 @@ const styles = StyleSheet.create({
     marginLeft: 230,
     // marginTop: 20
   },
-topBar: {
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  backgroundColor: '#6bc13b',
-  paddingHorizontal: 10,
-  paddingVertical: 12,
-  width:'100%',
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#6bc13b',
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    width: '100%',
 
-},
+  },
 
-leftButtons: {
-  flex: 1,
-  alignItems: 'flex-start',
-},
+  leftButtons: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
 
-rightButtons: {
-  flex: 1,
-  alignItems: 'flex-end',
-},
+  rightButtons: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
 
-TextFont: {
-  flex: 2,
-  textAlign: 'center',
-  color: '#fff',
-  fontSize: 18,
-  fontWeight: 'bold',
-},
+  TextFont: {
+    flex: 2,
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
 
-IconButtonLoginOut: {
-  padding: 10,
-  color: '#6bc13b',
-  borderRadius: 6,
-},
+  IconButtonLoginOut: {
+    padding: 10,
+    color: '#6bc13b',
+    borderRadius: 6,
+  },
 
-IconButton: {
-  padding: 10,
-  color: '#6bc13b',
-  borderRadius: 6,
-},
+  IconButton: {
+    padding: 10,
+    color: '#6bc13b',
+    borderRadius: 6,
+  },
 
   card: {
     width: 280,

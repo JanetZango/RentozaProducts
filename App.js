@@ -26,11 +26,11 @@ export default function App() {
         if (savedUser) {
           setInitialRoute('ProductList'); // or 'Welcome'
         } else {
-          setInitialRoute('Login');
+          setInitialRoute('Welcome');
         }
       } catch (e) {
         console.error('Failed to load login state:', e);
-        setInitialRoute('Login');
+        setInitialRoute('Welcome');
       } finally {
         setLoading(false);
       }
