@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import {  AddProductToCart } from '../services/ApiProduct';
+import { AddProductToCart } from '../services/ApiProduct';
 
 export default function ViewProductDetails({ route, navigation }) {
     const { item } = route.params;
@@ -42,38 +42,40 @@ export default function ViewProductDetails({ route, navigation }) {
             <View style={styles.topBar}>
                 <Pressable onPress={() => navigation.navigate('ProductList')}><Icon name="arrow-back" size={24} color="#fff" /></Pressable>
             </View>
-            <View style={styles.content}>
-                <Image style={styles.image} source={{ uri: item.image }} />
-                <Text style={styles.fontTitle}>{item.title}</Text>
-                <Text style={styles.description}>{item.description}</Text>
-                <Text style={styles.price}>R{item.price}</Text>
-                <Pressable style={styles.Button} onPress={() => AddToCart()}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Icon style={styles.icon} name="shopping-cart" size={24} />
-                        <Text style={styles.CartButton} >Add To Cart</Text>
-                    </View>
-                </Pressable>
-                <AwesomeAlert
-                    show={showAlert}
-                    showProgress={false}
-                    title="Yeppi"
-                    message="Product added to cart!"
-                    closeOnTouchOutside={true}
-                    closeOnHardwareBackPress={false}
-                    showConfirmButton={true}
-                    confirmText="OK"
-                    confirmButtonColor="#DD6B55"
-                    onConfirmPressed={() => {
-                        setShowAlert(false);
-                    }}
-                    customView={
-                        <Image
-                            source={require("../assets/HappyFace.png")}
-                            style={{ width: 60, height: 60 }}
-                        />
-                    }
-                />
-            </View>
+            <ScrollView>
+                <View style={styles.content}>
+                    <Image style={styles.image} source={{ uri: item.image }} />
+                    <Text style={styles.fontTitle}>{item.title}</Text>
+                    <Text style={styles.description}>{item.description}</Text>
+                    <Text style={styles.price}>R{item.price}</Text>
+                    <Pressable style={styles.Button} onPress={() => AddToCart()}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <Icon style={styles.icon} name="shopping-cart" size={24} />
+                            <Text style={styles.CartButton} >Add To Cart</Text>
+                        </View>
+                    </Pressable>
+                    <AwesomeAlert
+                        show={showAlert}
+                        showProgress={false}
+                        title="Yeppi"
+                        message="Product added to cart!"
+                        closeOnTouchOutside={true}
+                        closeOnHardwareBackPress={false}
+                        showConfirmButton={true}
+                        confirmText="OK"
+                        confirmButtonColor="#DD6B55"
+                        onConfirmPressed={() => {
+                            setShowAlert(false);
+                        }}
+                        customView={
+                            <Image
+                                source={require("../assets/HappyFace.png")}
+                                style={{ width: 60, height: 60 }}
+                            />
+                        }
+                    />
+                </View>
+            </ScrollView>
 
         </View>
     );

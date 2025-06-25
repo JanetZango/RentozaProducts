@@ -55,7 +55,7 @@ export const AddProductToCart = async (productArray) => {
     }
 }
 export const AuthUser = async (username, password) => {
-    console.log(email)
+    // console.log(email)
     try {
         const LoginUser = await fetch('https://fakestoreapi.com/auth/login', {
             method: 'POST',

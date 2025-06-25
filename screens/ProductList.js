@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-nati
 import { GetProducts, GetAllCarts, AddProductToCart } from '../services/ApiProduct';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProductList({ navigation }) {
   const [products, setProducts] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+  const [showAlertLogout, setShowAlertLogout] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,22 @@ export default function ProductList({ navigation }) {
 
     fetchData()
   }, [])
+
+  const LogoutHandle = async () => {
+    try {
+      await AsyncStorage.removeItem('UserLogin');
+      navigation.replace('Login');
+      //  showAlertLogout(true);
+   
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  }
+
+  const ShowAlert = () => {
+    console.log('yes sir')
+    setShowAlertLogout(true)
+  }
 
 
   const GetCarts = async () => {
@@ -52,10 +70,19 @@ export default function ProductList({ navigation }) {
     <View style={styles.container}>
 
       <View style={styles.topBar}>
-        <Pressable style={styles.IconButton} onPress={() => {
-          navigation.navigate('Cart')
-        }}><Icon name="shopping-cart" size={24} color="#fff" /></Pressable>
+        <View style={styles.leftButtons}>
+          <Pressable style={styles.IconButtonLoginOut} onPress={ShowAlert}>
+            <Icon name="logout" size={24} color="#fff" />
+          </Pressable>
+        </View>
+
         <Text style={styles.TextFont}>Product List</Text>
+
+        <View style={styles.rightButtons}>
+          <Pressable style={styles.IconButton} onPress={() => navigation.navigate('Cart')}>
+            <Icon name="shopping-cart" size={24} color="#fff" />
+          </Pressable>
+        </View>
       </View>
       <ScrollView>
         {products.map((item) => (
@@ -93,14 +120,37 @@ export default function ProductList({ navigation }) {
         closeOnHardwareBackPress={false}
         showConfirmButton={true}
         confirmText="OK"
-        confirmButtonColor="#DD6B55"
+        confirmButtonColor="#6bc13b"
         onConfirmPressed={() => {
           setShowAlert(false);
         }}
         customView={
           <Image
-            source={require("../assets/HappyFace.png")}
+            source={require("../assets/Happy2Face.jpeg")}
             style={{ width: 60, height: 60 }}
+          />
+        }
+      />
+
+      <AwesomeAlert
+        show={showAlertLogout}
+        showProgress={false}
+        title="Confirmation"
+        message="Are you sure you want to logOut? "
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showCancelButton={true}
+        showConfirmButton={true}
+        cancelText="No, cancel"
+        confirmText="Yes, proceed"
+        confirmButtonColor="#6bc13b"
+        cancelButtonColor="#6E7582"
+        onCancelPressed={() => setShowAlertLogout(false)}
+        onConfirmPressed={LogoutHandle}
+        customView={
+          <Image
+            source={require("../assets/Happy2Face.jpeg")}
+            style={{ width: 60, height: 60, marginBottom: 10 }}
           />
         }
       />
@@ -114,21 +164,64 @@ const styles = StyleSheet.create({
     backgroundColor: '#f2f2f2',
     alignItems: 'center',
   },
+  IconButtonLoginOut: {
+    marginLeft: 10,
+    // paddingTop:20
+  },
   TextFont: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
-    marginBottom: 10,
-    textAlign: 'center'
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    textAlign: 'center',
   },
   IconButton: {
-    marginLeft: 280,
-    marginTop: 10
+    marginLeft: 230,
+    // marginTop: 20
   },
-  topBar: {
-    backgroundColor: "#6bc13b",
-    width: '100%'
-  },
+topBar: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  backgroundColor: '#6bc13b',
+  paddingHorizontal: 10,
+  paddingVertical: 12,
+  width:'100%',
+
+},
+
+leftButtons: {
+  flex: 1,
+  alignItems: 'flex-start',
+},
+
+rightButtons: {
+  flex: 1,
+  alignItems: 'flex-end',
+},
+
+TextFont: {
+  flex: 2,
+  textAlign: 'center',
+  color: '#fff',
+  fontSize: 18,
+  fontWeight: 'bold',
+},
+
+IconButtonLoginOut: {
+  padding: 10,
+  color: '#6bc13b',
+  borderRadius: 6,
+},
+
+IconButton: {
+  padding: 10,
+  color: '#6bc13b',
+  borderRadius: 6,
+},
+
   card: {
     width: 280,
     height: 450,
