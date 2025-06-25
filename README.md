@@ -4,6 +4,9 @@ This project aims to help users claim for insurance. It was developed using Ioni
 ## Features
 1.Display products<br/>
 2.Add products to cart<br/>
+3.Login Auth<br/>
+4.LogOut<br/>
+
 
 ## Getting Started
 Guide users to get a local copy up and running. This section should be a quick overview of installation and setup.
