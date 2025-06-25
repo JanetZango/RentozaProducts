@@ -3839,6 +3839,13 @@ react-is@^19.1.0:
   resolved "https://registry.npmjs.org/react-is/-/react-is-19.1.0.tgz"
   integrity sha512-Oe56aUPnkHyyDxxkvqtd7KkdQP5uIUfHxd5XTb3wE9d/kRnZLmKbDB0GWk919tdQ+mxxPtG6EAs6RMT6i1qtHg==
 
+react-native-awesome-alerts@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/react-native-awesome-alerts/-/react-native-awesome-alerts-2.0.0.tgz"
+  integrity sha512-ZRBNnDfpE+aQCtXXnQcfGLqwzZ53Q45CNkQI4hOiF8/9JPuCyMUQL2aqtiypnLpCIX+CB28Jcx1KVJ6/reaZsg==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-edge-to-edge@1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/react-native-edge-to-edge/-/react-native-edge-to-edge-1.6.0.tgz"

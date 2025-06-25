@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, Pressable } from 'react-native';
 import { GetProducts, GetAllCarts, AddProductToCart } from '../services/ApiProduct';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function ProductList({ navigation }) {
   const [products, setProducts] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,10 +44,13 @@ export default function ProductList({ navigation }) {
     console.log(ProductArray)
     const post_addCart = await AddProductToCart(ProductArray);
     console.log(post_addCart)
+    setShowAlert(true)
+
   }
 
   return (
     <View style={styles.container}>
+
       <View style={styles.topBar}>
         <Pressable style={styles.IconButton} onPress={() => {
           navigation.navigate('Cart')
@@ -64,21 +69,41 @@ export default function ProductList({ navigation }) {
             <Pressable onPress={() => {
               navigation.navigate('ViewProductDetails', { item })
 
-            }}>  
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            }}>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon style={styles.icon} name="visibility" size={15} />
                 <Text style={styles.viewButton}>View</Text>
               </View>
-              </Pressable>
+            </Pressable>
             <Pressable onPress={() => AddToCart(item)}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon style={styles.icon} name="shopping-cart" size={15} />
                 <Text style={styles.CartButton} >Add to Cart</Text>
               </View>
-              </Pressable>
+            </Pressable>
           </View>
         ))}
       </ScrollView>
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        title="Yeppi"
+        message="Product added to cart!"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor="#DD6B55"
+        onConfirmPressed={() => {
+          setShowAlert(false);
+        }}
+        customView={
+          <Image
+            source={require("../assets/HappyFace.png")}
+            style={{ width: 60, height: 60 }}
+          />
+        }
+      />
     </View>
   );
 }
@@ -146,7 +171,7 @@ const styles = StyleSheet.create({
   viewButton: {
     color: "#6bc13b",
     fontWeight: 700,
-      marginTop: 16
+    marginTop: 16
   },
   CartButton: {
     color: "#6bc13b",
